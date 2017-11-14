@@ -7,6 +7,7 @@ let term = util.term
 let boilerplate = util.boilerplate
 let product = util.product
 let contextLanguage = util.contextLanguage
+let contextTag = util.contextTag
 let expect = require("chai").expect //required chai, but you can use anything you want
 
 
@@ -45,29 +46,11 @@ describe("You can set the behavior of the stubs", function() {
     it("will return the behavior You set for term in getTerm()", function(){
       term.withArgs("$red").returnsArg("red")  //term will return the first argument given in
       expect(getTerm("$red")).to.equal("red")  //to see what is possible with sinon see the documentation of sinon
-    it("will return undefined if behavior is not described")
+      boilerplate.withArgs("legal").returns("My legal text")
+      expect(boilerplate("legal")).to.equal("My legal text")
+    it("will return undefined if the term is not defined")
       expect(getTerm("$blue")).to.equal(undefined)
     })
-  })
-  it("can also set the behavior of every input", function(){
-    it("will return the first argument i used to call the function getTerm()", function(){
-      boilerplate.returnsArg(0)
-      expect(getBoilerplate("legal")).to.equal("legal")
-      expect(getBoilerplate("statement")).to.equal("statement")
-      expect(getBoilerplate("anything")).to.equal("anything")
-    })
-  })
-  it("can also set explicit behavior for the first, second or nth call of the stub", function(){
-    product.attributeValue.reset()
-    product.attributeValue.onFirstCall().returns("first")
-    product.attributeValue.onThirdCall().returns("third")
-    product.attributeValue.onCall(4).returns("fith") // 4 because first call starts at index 0
-    expect(getAttributeValue()).to.equal("first")
-    expect(getAttributeValue()).to.equal(undefined)
-    expect(getAttributeValue()).to.equal("third")
-    expect(getAttributeValue()).to.equal(undefined)
-    expect(getAttributeValue()).to.equal("fith")
-    expect(getAttributeValue()).to.equal(undefined)
   })
 })
 /*
@@ -99,14 +82,48 @@ describe("You can also set the behavior more complex:", function(){
     expect(getTerm("$green")).to.equal(undefined)
   })
 })
-
-describe("You can also analyze the stubs",function(){
-  it("can show how often it was called",function(){
-    term.reset()
-    expect(term.called).to.equal(false)
-    getTerm()
-    expect(term.called).to.equal(true)
-    expect(term.calledOnce).to.equal(true)
-    expect(term.calledTwice).to.equal(false)
+describe("You can use your expressions pointing on one or more other attributes", function(){
+  it("LATER", function(){  //TODO better name
+    //Commment why value has to be a function
+    product.attributeValue.withArgs("height").returns({value: function(){return 5}})
+    product.attributeValue.withArgs("length").returns({value: function(){return 3}})
+    expect(getDeepth()).to.equal(15)
   })
 })
+describe("You can also use other expressions for your expressions", function(){
+  // This only works if all expressions of you are in the customJSFunctions file.
+  it("also works if not defined earlyer", function(){ //Kommentar überarbeiten
+    product.attributeValue.reset()
+    //First you need to describe the behavior for the pointed expression,
+    //so in this case the behavior of getDeepth()
+    product.attributeValue.withArgs("height").returns({value: function(){return 8}})
+    /*
+    * product.attributeValue retuns a JSON with a function called value, because
+    * product.attributeValue.value() is also a function in PIM
+    */
+    product.attributeValue.withArgs("length").returns({value: function(){return 4}})
+    expect(concatDeepthWithUoM()).to.equal("32 cm")
+  })
+})
+/*
+Sachen, die Du noch unterbringen kannst:
+-Eine Expression verrechnet zwei Attributwerte (Tiefe = breite x laenge)  -
+-Mehrstufige Expressions: Eine Expression verwendet den Wert einer anderen Expression
+Attribut 1: "cm"
+Attribut 2 isExpression, breite x laenge
+Attribut 3: Attribut2 + " " + Attribut1
+
+- term() und boilerplate() in abhngigkeitvon contextLanguage
+- beides in abhaengigkeit von contextTag
+
+GRAND FINALE
+MinMax-String (Sprachabhaengig)
+- <1
+- >2
+- 1..2
+- 1~2
+- 1..2 $Ohm
+
+
+
+*/

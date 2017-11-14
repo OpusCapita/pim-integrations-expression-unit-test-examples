@@ -13,3 +13,11 @@ function getAttributeValues(id){
 function getContextLanguage(){
   return contextLanguage
 }
+function getDeepth(){
+  var height = product.attributeValue("height").value()
+  var length = product.attributeValue("length").value()
+  return length*height
+}
+function concatDeepthWithUoM(){
+  return getDeepth() + " cm"
+}
