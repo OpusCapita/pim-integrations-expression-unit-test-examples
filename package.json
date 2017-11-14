@@ -1,0 +1,19 @@
+{
+  "name": "unittestlibrary-examples",
+  "version": "0.0.1",
+  "description": "A example library for the unit-test library",
+  "main": "index.js",
+  "scripts": {
+    "start": "mocha -w ./example/example.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OpusCapita/stprj-expression-unit-test-examples.git"
+  },
+  "author": "Philipp Flenker, Alexej Froebel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OpusCapita/stprj-expression-unit-test-examples/issues"
+  },
+  "homepage": "https://github.com/OpusCapita/stprj-expression-unit-test-examples#readme"
+}
