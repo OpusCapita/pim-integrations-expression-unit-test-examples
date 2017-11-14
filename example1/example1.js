@@ -57,6 +57,18 @@ describe("You can set the behavior of the stubs", function() {
       expect(getBoilerplate("anything")).to.equal("anything")
     })
   })
+  it("can also set explicit behavior for the first, second or nth call of the stub", function(){
+    product.attributeValue.reset()
+    product.attributeValue.onFirstCall().returns("first")
+    product.attributeValue.onThirdCall().returns("third")
+    product.attributeValue.onCall(4).returns("fith") // 4 because first call starts at index 0
+    expect(getAttributeValue()).to.equal("first")
+    expect(getAttributeValue()).to.equal(undefined)
+    expect(getAttributeValue()).to.equal("third")
+    expect(getAttributeValue()).to.equal(undefined)
+    expect(getAttributeValue()).to.equal("fith")
+    expect(getAttributeValue()).to.equal(undefined)
+  })
 })
 /*
 * To see what is possible with the sinon-stubs, look at the documentation of
@@ -81,5 +93,19 @@ describe("You can also set the behavior more complex:", function(){
     expect(getTerm("$red")).to.equal("rot")
     contextLanguage = "en_EN"
     expect(getTerm("$red")).to.equal("red")
+  })
+  it("will not do the same for $blue or other not specified arguments", function(){
+    expect(getTerm("$blue")).to.equal(undefined)
+  })
+})
+
+describe("You can also analyze the stubs",function(){
+  it("can show how often it was called",function(){
+    term.reset()
+    expect(term.called).to.equal(false)
+    getTerm()
+    expect(term.called).to.equal(true)
+    expect(term.calledOnce).to.equal(true)
+    expect(term.calledTwice).to.equal(false)
   })
 })
