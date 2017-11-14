@@ -96,6 +96,7 @@ describe("You can also set the behavior more complex:", function(){
   })
   it("will not do the same for $blue or other not specified arguments", function(){
     expect(getTerm("$blue")).to.equal(undefined)
+    expect(getTerm("$green")).to.equal(undefined)
   })
 })
 
