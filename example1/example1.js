@@ -43,17 +43,17 @@ describe("It will not throw errors if you are using the expression functions", f
 describe("You can set the behavior of the stubs", function() {
   it("can be setted for specified input", function(){
     it("will return the behavior You set for term in getTerm()", function(){
-      term.withArgs(2).returnsArg(0)  //term will return the first argument given in
-      expect(getTerm(2)).to.equal(2)  //to see what is possible with sinon see the documentation of sinon
+      term.withArgs("$red").returnsArg("red")  //term will return the first argument given in
+      expect(getTerm("$red")).to.equal("red")  //to see what is possible with sinon see the documentation of sinon
     it("will return undefined if behavior is not described")
-      expect(getTerm(5)).to.equal(undefined)
+      expect(getTerm("$blue")).to.equal(undefined)
     })
   })
   it("can also set the behavior of every input", function(){
     it("will return the first argument i used to call the function getTerm()", function(){
       boilerplate.returnsArg(0)
-      expect(getBoilerplate(3)).to.equal(3)
-      expect(getBoilerplate(5)).to.equal(5)
+      expect(getBoilerplate("legal")).to.equal("legal")
+      expect(getBoilerplate("statement")).to.equal("statement")
       expect(getBoilerplate("anything")).to.equal("anything")
     })
   })
