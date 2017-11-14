@@ -42,9 +42,9 @@ describe("It will not throw errors if you are using the expression functions", f
 })
 describe("You can set the behavior of the stubs", function() {
   it("can be setted for specified input", function(){
-    it("will return the behavior I set for term in getTerm()", function(){
+    it("will return the behavior You set for term in getTerm()", function(){
       term.withArgs(2).returnsArg(0)  //term will return the first argument given in
-      expect(getTerm(2)).to.equal(2)
+      expect(getTerm(2)).to.equal(2)  //to see what is possible with sinon see the documentation of sinon
     it("will return undefined if behavior is not described")
       expect(getTerm(5)).to.equal(undefined)
     })
