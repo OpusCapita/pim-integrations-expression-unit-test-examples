@@ -1,14 +1,14 @@
 function getTerm(id){
-  term(id)
+  return term(id)
 }
 function getBoilerplate(id){
-  boilerplate(id)
+  return boilerplate(id)
 }
 function getAttributeValue(id){
-  product.attributeValue(id)
+  return product.attributeValue(id)
 }
 function getAttributeValues(id){
-  product.attributeValues(id)
+  return product.attributeValues(id)
 }
 function getContextLanguage(){
   return contextLanguage
