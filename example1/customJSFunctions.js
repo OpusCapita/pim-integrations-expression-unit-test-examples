@@ -13,6 +13,9 @@ function getAttributeValues(id){
 function getContextLanguage(){
   return contextLanguage
 }
+function getContextTag(){
+  return contextTag
+}
 function getDeepth(){
   var height = product.attributeValue("height").value()
   var length = product.attributeValue("length").value()
@@ -20,4 +23,42 @@ function getDeepth(){
 }
 function concatDeepthWithUoM(){
   return getDeepth() + " cm"
+}
+function getMinimalSuspense(){
+  if(contextTag=="2_wire_connector"){
+    return 20
+  } else if (contextTag=="3_wire_connector") {
+    return 18
+  }
+}
+function getMaximalSuspense(){
+  if(contextTag=="2_wire_connector"){
+    return 32
+  } else if (contextTag=="3_wire_connector") {
+    return 32
+  } else {
+    return 30
+  }
+
+}
+function getMinMaxString(){
+  var between, min, max
+  if(contextLanguage=="jp_JP")
+  {
+    between = "~"
+  } else {
+    between = "..."
+  }
+  min = getMinimalSuspense()
+  max = getMaximalSuspense()
+  var returnString = ""
+  if(min && max)
+  {
+    returnString = min+between+max+" DC"
+  } else if(!min){
+    returnString = "<"+max
+  }else if(!max){
+    returnString = ">"+min
+  }
+  return returnString
 }

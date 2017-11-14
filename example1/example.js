@@ -40,6 +40,9 @@ describe("It will not throw errors if you are using the expression functions", f
   it("calling contextLanguage",function(){
     getContextLanguage()
   })
+  it("calling contextTag",function(){
+    getContextTag()
+  })
 })
 describe("You can set the behavior of the stubs", function() {
   it("can be setted for specified input", function(){
@@ -152,25 +155,23 @@ describe("You can also use term() and boilerplate() in relation to contextLangua
     expect(getBoilerplate("dangerous")).to.equal("This product is dangerous")
   })
 })
-/*
-Sachen, die Du noch unterbringen kannst:
--Eine Expression verrechnet zwei Attributwerte (Tiefe = breite x laenge)  -
--Mehrstufige Expressions: Eine Expression verwendet den Wert einer anderen Expression
-Attribut 1: "cm"
-Attribut 2 isExpression, breite x laenge
-Attribut 3: Attribut2 + " " + Attribut1
+describe("You can also use contextTag in your expressions", function(){
+  contextTag = "2_wire_connector"
+  expect(getMinimalSuspense()).to.equal(20)
+  contextTag = "3_wire_connector"
+  expect(getMinimalSuspense()).to.equal(18)
+})
 
-- term() und boilerplate() in abhngigkeitvon contextLanguage
-- beides in abhaengigkeit von contextTag
-
-GRAND FINALE
-MinMax-String (Sprachabhaengig)
-- <1
-- >2
-- 1..2
-- 1~2
-- 1..2 $Ohm
-
-
-
-*/
+describe("More complex expressions and testing", function() {
+  it("Creates a min...max String in relation to contextTag, contextLanguage and other Attributes/Expressions", function(){
+    contextTag = "2_wire_connector"
+    contextLanguage = "de_DE"
+    expect(getMinMaxString()).to.equal("20...32 DC")
+    contextTag = "3_wire_connector"
+    expect(getMinMaxString()).to.equal("18...32 DC")
+    contextLanguage = "jp_JP"
+    expect(getMinMaxString()).to.equal("18~32 DC")
+    contextTag = "4_wire_connector"
+    expect(getMinMaxString()).to.equal("<30")
+  })
+})
