@@ -64,7 +64,7 @@ describe("You can set the behavior of the stubs", function() {
 */
 describe("You can also set the behavior more complex:", function(){
   it("can be set in relation of other variables", function(){
-    term.reset()  //because of this the stub is cleared and has jis initial behavior
+    term.reset()  //because of this the stub is cleared and has its initial behavior
     function rightBehaviorOfTermRed(){
       if(contextLanguage=="de_DE"){
         return "rot"
