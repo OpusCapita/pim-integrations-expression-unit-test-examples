@@ -57,8 +57,29 @@ describe("You can set the behavior of the stubs", function() {
       expect(getBoilerplate("anything")).to.equal("anything")
     })
   })
-});
+})
 /*
 * To see what is possible with the sinon-stubs, look at the documentation of
 * sinon: http://sinonjs.org/
 */
+describe("You can also set the behavior more complex:", function(){
+  it("can be set in relation of other variables", function(){
+    term.reset()  //because of this the stub is cleared and has jis initial behavior
+    function rightBehaviorOfTermRed(){
+      if(contextLanguage=="de_DE"){
+        return "rot"
+      } else if(contextLanguage=="en_EN"){
+        return "red"
+      } else {
+        // Your fallback if none of them is true
+        return "red_fallback"
+      }
+    }
+    term.withArgs("$red").callsFake(rightBehaviorOfTermRed)// this function is called everytime term gets called with Argument ("$red")
+    expect(getTerm("$red")).to.equal("red_fallback")
+    contextLanguage = "de_DE"
+    expect(getTerm("$red")).to.equal("rot")
+    contextLanguage = "en_EN"
+    expect(getTerm("$red")).to.equal("red")
+  })
+})
