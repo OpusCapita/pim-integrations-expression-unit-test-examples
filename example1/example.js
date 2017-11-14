@@ -71,6 +71,7 @@ describe("You can also set the behavior more complex:", function(){
       }
     }
     term.withArgs("$red").callsFake(rightBehaviorOfTermRed)// this function is called everytime term gets called with Argument ("$red")
+    contextLanguage = "" //contextLanguage is variable so if you want to reset it just do this
     expect(getTerm("$red")).to.equal("red_fallback")
     contextLanguage = "de_DE"
     expect(getTerm("$red")).to.equal("rot")
@@ -103,6 +104,52 @@ describe("You can also use other expressions for your expressions", function(){
     */
     product.attributeValue.withArgs("length").returns({value: function(){return 4}})
     expect(concatDeepthWithUoM()).to.equal("32 cm")
+  })
+})
+describe("You can also use term() and boilerplate() in relation to contextLanguage", function(){
+  it("Returns term in relation to the contextLanguage", function(){
+    function rightBehaviorOfTermBlue(){ //first you need to create a function for different contextLanguages
+      if(contextLanguage == "de_DE"){
+        return "blau";
+      } else if(contextLanguage == "en_EN"){
+        return "blue"
+      } else if(contextLanguage == "es_ES"){
+        return "azul"
+      } else {
+        //your fallback
+        return "blue_fallback"
+      }
+    }
+    term.reset()
+    term.withArgs("$blue").callsFake(rightBehaviorOfTermBlue)
+    contextLanguage = ""
+    expect(getTerm("$blue")).to.equal("blue_fallback")
+    contextLanguage = "es_ES"
+    expect(getTerm("$blue")).to.equal("azul")
+    contextLanguage = "de_DE"
+    expect(getTerm("$blue")).to.equal("blau")
+    contextLanguage = "en_EN"
+    expect(getTerm("$blue")).to.equal("blue")
+  })
+  it("Returns boilerplate in relation to the contextLanguage", function(){
+    function rightBehaviorOfBoilerplateDanger(){ //first you need to create a function for different contextLanguages
+      if(contextLanguage == "de_DE"){
+        return "Das Produkt ist gefaerlich";
+      } else if(contextLanguage == "en_EN"){
+        return "This product is dangerous"
+      } else {
+        //your fallback
+        return "This product is dangerous_fallback"
+      }
+    }
+    boilerplate.reset()
+    boilerplate.withArgs("dangerous").callsFake(rightBehaviorOfBoilerplateDanger)
+    contextLanguage = ""
+    expect(getBoilerplate("dangerous")).to.equal("This product is dangerous_fallback")
+    contextLanguage = "de_DE"
+    expect(getBoilerplate("dangerous")).to.equal("Das Produkt ist gefaerlich")
+    contextLanguage = "en_EN"
+    expect(getBoilerplate("dangerous")).to.equal("This product is dangerous")
   })
 })
 /*
