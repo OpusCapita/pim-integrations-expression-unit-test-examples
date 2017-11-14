@@ -58,3 +58,7 @@ describe("You can set the behavior of the stubs", function() {
     })
   })
 });
+/*
+* To see what is possible with the sinon-stubs, look at the documentation of
+* sinon: http://sinonjs.org/
+*/
