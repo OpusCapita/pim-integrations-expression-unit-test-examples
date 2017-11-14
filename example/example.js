@@ -1,5 +1,5 @@
 //Import and initialize
-const util = require("../unitTestLibrary/util").initalize("../../example1/config.json") //you dont need to do this in your file
+const util = require("../unitTestLibrary/util").initalize("../../example/config.json") //you dont need to do this in your file
 eval(util.unparsedExpressions)
 
 //Prepare for expression evaluation
