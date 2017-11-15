@@ -10,31 +10,37 @@ let contextLanguage = util.contextLanguage
 let contextTag = util.contextTag
 let expect = require("chai").expect
 
-describe("It will not throw errors if you are using the expression functions", function(){
-  it("calling term()",function(){
+describe("It will not throw errors if you are using the predefined expression functions", function(){
+  it("supports term()",function(){
     getTerm(3)
   })
-  it("calling boilerplate()",function(){
+  it("supports boilerplate()",function(){
     getBoilerplate(3)
   })
-  it("calling product.attributeValue()",function(){
+  it("supports product.attributeValue()",function(){
     getAttributeValue(3)
   })
-  it("calling product.attributeValues()",function(){
+  it("supports product.attributeValues()",function(){
     getAttributeValues(3)
   })
-  it("calling contextLanguage",function(){
+  it("supports contextLanguage",function(){
     getContextLanguage()
   })
-  it("calling contextTag",function(){
+  it("supports contextTag",function(){
     getContextTag()
   })
 })
-describe("You can set the behavior of the stubs", function() {
-  it("can be setted for specified input", function(){
+
+describe("You can define the behavior of the stubs", function() {
+  it("The returnvalue can be set for specified input", function(){
     it("will return the behavior You set for term in getTerm()", function(){
-      term.withArgs("$red").returnsArg("red")  //term will return the first argument given in
-      expect(getTerm("$red")).to.equal("red")  //to see what is possible with sinon see the documentation of sinon
+      term.withArgs("$red").returnsArg("red")  //term will return red if it gets called with argument $red
+      /*
+      * term, boilerplate, product.attributeValue and product.attributeValues are sinon stubs.
+      * You can define their behavior and can analyze there behavior like every other sinon stub.
+      * See the documentation of sinon for more informations how to do it `http://sinonjs.org/`
+      */
+      expect(getTerm("$red")).to.equal("red")
       boilerplate.withArgs("legal").returns("My legal text")
       expect(boilerplate("legal")).to.equal("My legal text")
     it("will return undefined if the term is not defined")
@@ -42,13 +48,11 @@ describe("You can set the behavior of the stubs", function() {
     })
   })
 })
-/*
-* To see what is possible with the sinon-stubs, look at the documentation of
-* sinon: http://sinonjs.org/
-*/
+
 describe("You can also set the behavior more complex:", function(){
   it("can be set in relation of other variables", function(){
     term.reset()  //because of this the stub is cleared and has its initial behavior
+    // A function is created which declares a more complex behavior for the term
     function rightBehaviorOfTermRed(){
       if(contextLanguage=="de_DE"){
         return "rot"
@@ -59,7 +63,9 @@ describe("You can also set the behavior more complex:", function(){
         return "red_fallback"
       }
     }
-    term.withArgs("$red").callsFake(rightBehaviorOfTermRed)// this function is called everytime term gets called with Argument ("$red")
+    // The function gets linked with the sinon-stub term.
+    // Now the function gets called every time when term gets called with argument $red
+    term.withArgs("$red").callsFake(rightBehaviorOfTermRed)
     contextLanguage = "" //contextLanguage is variable so if you want to reset it just do this
     expect(getTerm("$red")).to.equal("red_fallback")
     contextLanguage = "de_DE"
@@ -73,8 +79,11 @@ describe("You can also set the behavior more complex:", function(){
   })
 })
 describe("You can use your expressions pointing on one or more other attributes", function(){
-  it("LATER", function(){  //TODO better name
-    //Commment why value has to be a function
+  it("Two attributes are called", function(){
+    /*
+    * product.attributeValue retuns a JSON with a function called value, because
+    * product.attributeValue.value() is also a function in PIM
+    */
     product.attributeValue.withArgs("height").returns({value: function(){return 5}})
     product.attributeValue.withArgs("length").returns({value: function(){return 3}})
     expect(calculateSquares()).to.equal(15)
@@ -82,13 +91,13 @@ describe("You can use your expressions pointing on one or more other attributes"
 })
 describe("You can also use other expressions for your expressions", function(){
   // This only works if all expressions of you are in the customJSFunctions file.
-  it("also works if not defined earlyer", function(){ //Kommentar überarbeiten
+  it("also works if not defined earlyer", function(){
     product.attributeValue.reset()
     //First you need to describe the behavior for the pointed expression,
     //so in this case the behavior of calculateSquares()
     product.attributeValue.withArgs("height").returns({value: function(){return 8}})
     /*
-    * product.attributeValue retuns a JSON with a function called value, because
+    * product.attributeValue retuns a JSON with a function called 'value', because
     * product.attributeValue.value() is also a function in PIM
     */
     product.attributeValue.withArgs("length").returns({value: function(){return 4}})
