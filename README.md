@@ -1,6 +1,7 @@
 # stprj-expression-unit-test-examples
 ## How to Prepare:
-- Go to the unitTestLibrary Folder and type `npm install` into the terminal
-- Go to the example folder and type `npm install` into the terminal
+- First you need to clone this repository and with the submodule. For this type `git clone --recursive <this repository>`
+- Than `cd unitTestLibrary` and type `npm install`
+- After that you need to type `cd ../example` and type `npm install`
 ## How to start the example:
 - Go to the root directory of this library and type `npm start`
