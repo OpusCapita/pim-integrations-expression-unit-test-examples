@@ -8,7 +8,7 @@ let boilerplate = util.boilerplate
 let product = util.product
 let contextLanguage = util.contextLanguage
 let contextTag = util.contextTag
-let expect = require("chai").expect //required chai, but you can use anything you want
+let expect = require("chai").expect
 
 
 /*
