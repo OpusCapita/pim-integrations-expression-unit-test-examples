@@ -63,8 +63,9 @@ describe('You can also set the behavior more complex:', () => {
       // Your fallback if none of them is true
       return 'red_fallback';
     }
-    // The function gets linked with the sinon-stub term.
-    // Now the function gets called every time when term gets called with argument $red
+    /* The function gets linked with the sinon-stub term.
+    *   Now the function gets called every time when term gets called with argument $red
+    */
     term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
     contextLanguage = ''; // contextLanguage is variable so if you want to reset it just do this
     expect(getTerm('$red')).to.equal('red_fallback');
@@ -93,8 +94,10 @@ describe('You can also use other expressions for your expressions', () => {
   // This only works if all expressions of you are in the customJSFunctions file.
   it('also works if not defined earlyer', () => {
     product.attributeValue.reset();
-    // First you need to describe the behavior for the pointed expression,
-    // so in this case the behavior of calculateSquares()
+    /*
+    * First you need to describe the behavior for the pointed expression,
+    * so in this case the behavior of calculateSquares()
+    */
     product.attributeValue.withArgs('height').returns({ value() { return 8; } });
     /*
     * product.attributeValue retuns a JSON with a function called 'value', because
