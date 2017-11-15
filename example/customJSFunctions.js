@@ -18,24 +18,24 @@ function getContextTag(){
   return contextTag
 }
 // Sample Expression for showing how to test a expression using other attribute values
-function getSquares(){
+function calculateSquares(){
   var height = product.attributeValue("height").value()
   var length = product.attributeValue("length").value()
   return length*height
 }
 // Sample Expression for showing how to test a expression using other expressions
 function concatDeepthWithUoM(){
-  return getSquares() + " cm"
+  return calculateSquares() + " cm"
 }
 // These are sample expression for showing how to test contextTag behavior
-function getMinimalSuspense(){
+function calculateMinimalSuspense(){
   if(contextTag=="2_wire_connector"){
     return 20
   } else if (contextTag=="3_wire_connector") {
     return 18
   }
 }
-function getMaximalSuspense(){
+function calculateMaximalSuspense(){
   if(contextTag=="2_wire_connector"){
     return 32
   } else if (contextTag=="3_wire_connector") {
@@ -46,7 +46,7 @@ function getMaximalSuspense(){
 
 }
 // This is a example for a real expression
-function getMinMaxString(){
+function buildMinMaxString(){
   var between, min, max
   if(contextLanguage=="jp_JP")
   {
@@ -54,8 +54,8 @@ function getMinMaxString(){
   } else {
     between = "..."
   }
-  min = getMinimalSuspense()
-  max = getMaximalSuspense()
+  min = calculateMinimalSuspense()
+  max = calculateMaximalSuspense()
   var returnString = ""
   if(min && max)
   {

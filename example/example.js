@@ -91,7 +91,7 @@ describe("You can use your expressions pointing on one or more other attributes"
     //Commment why value has to be a function
     product.attributeValue.withArgs("height").returns({value: function(){return 5}})
     product.attributeValue.withArgs("length").returns({value: function(){return 3}})
-    expect(getSquares()).to.equal(15)
+    expect(calculateSquares()).to.equal(15)
   })
 })
 describe("You can also use other expressions for your expressions", function(){
@@ -99,7 +99,7 @@ describe("You can also use other expressions for your expressions", function(){
   it("also works if not defined earlyer", function(){ //Kommentar überarbeiten
     product.attributeValue.reset()
     //First you need to describe the behavior for the pointed expression,
-    //so in this case the behavior of getSquares()
+    //so in this case the behavior of calculateSquares()
     product.attributeValue.withArgs("height").returns({value: function(){return 8}})
     /*
     * product.attributeValue retuns a JSON with a function called value, because
@@ -157,21 +157,21 @@ describe("You can also use term() and boilerplate() in relation to contextLangua
 })
 describe("You can also use contextTag in your expressions", function(){
   contextTag = "2_wire_connector"
-  expect(getMinimalSuspense()).to.equal(20)
+  expect(calculateMinimalSuspense()).to.equal(20)
   contextTag = "3_wire_connector"
-  expect(getMinimalSuspense()).to.equal(18)
+  expect(calculateMinimalSuspense()).to.equal(18)
 })
 
 describe("More complex expressions and testing", function() {
   it("Creates a min...max String in relation to contextTag, contextLanguage and other Attributes/Expressions", function(){
     contextTag = "2_wire_connector"
     contextLanguage = "de_DE"
-    expect(getMinMaxString()).to.equal("20...32 DC")
+    expect(buildMinMaxString()).to.equal("20...32 DC")
     contextTag = "3_wire_connector"
-    expect(getMinMaxString()).to.equal("18...32 DC")
+    expect(buildMinMaxString()).to.equal("18...32 DC")
     contextLanguage = "jp_JP"
-    expect(getMinMaxString()).to.equal("18~32 DC")
+    expect(buildMinMaxString()).to.equal("18~32 DC")
     contextTag = "4_wire_connector"
-    expect(getMinMaxString()).to.equal("<30")
+    expect(buildMinMaxString()).to.equal("<30")
   })
 })
