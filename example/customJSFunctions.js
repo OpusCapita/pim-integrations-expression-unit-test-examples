@@ -16,13 +16,13 @@ function getContextLanguage(){
 function getContextTag(){
   return contextTag
 }
-function getDeepth(){
+function getSquares(){
   var height = product.attributeValue("height").value()
   var length = product.attributeValue("length").value()
   return length*height
 }
 function concatDeepthWithUoM(){
-  return getDeepth() + " cm"
+  return getSquares() + " cm"
 }
 function getMinimalSuspense(){
   if(contextTag=="2_wire_connector"){

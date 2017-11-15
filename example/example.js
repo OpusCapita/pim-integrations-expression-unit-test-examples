@@ -91,7 +91,7 @@ describe("You can use your expressions pointing on one or more other attributes"
     //Commment why value has to be a function
     product.attributeValue.withArgs("height").returns({value: function(){return 5}})
     product.attributeValue.withArgs("length").returns({value: function(){return 3}})
-    expect(getDeepth()).to.equal(15)
+    expect(getSquares()).to.equal(15)
   })
 })
 describe("You can also use other expressions for your expressions", function(){
@@ -99,7 +99,7 @@ describe("You can also use other expressions for your expressions", function(){
   it("also works if not defined earlyer", function(){ //Kommentar überarbeiten
     product.attributeValue.reset()
     //First you need to describe the behavior for the pointed expression,
-    //so in this case the behavior of getDeepth()
+    //so in this case the behavior of getSquares()
     product.attributeValue.withArgs("height").returns({value: function(){return 8}})
     /*
     * product.attributeValue retuns a JSON with a function called value, because
