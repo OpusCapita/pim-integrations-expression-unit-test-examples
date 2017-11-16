@@ -9,7 +9,7 @@
 
 ## Behavior of Code:
 - When you type `npm install` into the terminal, this will happen:
-<img src=":/example/behavior.JPG" />
+<img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" height="350px" width="400px"/>
 
 ## Contributors
 | [<img src="https://avatars.githubusercontent.com/u/30691117" width="100px;"/>](https://github.com/alexejFroebel) | [**Alexej Froebel**](https://github.com/alexejFroebel)     |
