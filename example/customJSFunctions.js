@@ -35,7 +35,7 @@ function calculateSurface() {
 */
 function calculateSurfaceString() {
   //TODO
-  return calculateSquares()" + "cm";
+  return calculateSquares() + "cm";
 }
 /*
 * Example to show how the contextTag can be pre-defined
