@@ -8,6 +8,7 @@ This repository contains usage examples for the [OpusCapita Expression Unit Test
 
 ## How to start the example:
 - `npm start` runs the code.
+- You can find the example expressions in `example/customJSFunctions.js` and the sample file containing the test cases in `example/example.js`
 
 <img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" />
 
