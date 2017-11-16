@@ -36,6 +36,9 @@ describe('It will not throw errors if you are using the predefined expression fu
 describe('You can define the behavior of the stubs', () => {
   it('The returnvalue can be set for specified input', () => {
     it('will return the behavior You set for term in getTerm()', () => {
+      /* TODO
+      * term("$red") => "red"
+      */
       term.withArgs('$red').returnsArg('red'); // term will return red if it gets called with argument $red
       /*
       * term, boilerplate, product.attributeValue and product.attributeValues are sinon stubs.
@@ -45,7 +48,9 @@ describe('You can define the behavior of the stubs', () => {
       expect(getTerm('$red')).to.equal('red');
       boilerplate.withArgs('legal').returns('My legal text');
       expect(boilerplate('legal')).to.equal('My legal text');
+
       it('will return undefined if the term is not defined');
+      // TODO ???
       expect(getTerm('$blue')).to.equal(undefined);
     });
   });
@@ -53,7 +58,9 @@ describe('You can define the behavior of the stubs', () => {
 
 describe('You can also set the behavior more complex:', () => {
   it('can be set in relation of other variables', () => {
-    term.reset(); // because of this the stub is cleared and has its initial behavior
+    term.reset(); // because of this the stub is cleared and has its initial behavior TODO kommentar drüber und asuführlicher
+
+
     // A function is created which declares a more complex behavior for the term
     function rightBehaviorOfTermRed() {
       if (contextLanguage === 'de_DE') {
@@ -64,11 +71,15 @@ describe('You can also set the behavior more complex:', () => {
       // Your fallback if none of them is true
       return 'red_fallback';
     }
-    /* The function gets linked with the sinon-stub term.
+    /*
+    *   The function gets linked with the sinon-stub term.
     *   Now the function gets called every time when term gets called with argument $red
     */
     term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
-    contextLanguage = ''; // contextLanguage is variable so if you want to reset it just do this
+
+
+    contextLanguage = ''; // contextLanguage is variable so if you want to reset it just do this TODO
+
     expect(getTerm('$red')).to.equal('red_fallback');
     contextLanguage = 'de_DE';
     expect(getTerm('$red')).to.equal('rot');
@@ -110,7 +121,7 @@ describe('You can also use other expressions for your expressions', () => {
 });
 describe('You can also use term() and boilerplate() in relation to contextLanguage', () => {
   it('Returns term in relation to the contextLanguage', () => {
-    function rightBehaviorOfTermBlue() { // first you need to create a function for different contextLanguages
+    function rightBehaviorOfTermBlue() { // first you need to create a function for different contextLanguages TODO Kommentar drüber und ausformulieren
       if (contextLanguage === 'de_DE') {
         return 'blau';
       } else if (contextLanguage === 'en_EN') {
@@ -118,7 +129,7 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
       } else if (contextLanguage === 'es_ES') {
         return 'azul';
       }
-      // your fallback
+      // your fallback TODO genauer ausformulieren
       return 'blue_fallback';
     }
     term.reset();
@@ -135,7 +146,7 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
   it('Returns boilerplate in relation to the contextLanguage', () => {
     function rightBehaviorOfBoilerplateDanger() { // first you need to create a function for different contextLanguages
       if (contextLanguage === 'de_DE') {
-        return 'Das Produkt ist gefaerlich';
+        return 'Das Produkt ist gefaehrlich';
       } else if (contextLanguage === 'en_EN') {
         return 'This product is dangerous';
       }
@@ -147,7 +158,7 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
     contextLanguage = '';
     expect(getBoilerplate('dangerous')).to.equal('This product is dangerous_fallback');
     contextLanguage = 'de_DE';
-    expect(getBoilerplate('dangerous')).to.equal('Das Produkt ist gefaerlich');
+    expect(getBoilerplate('dangerous')).to.equal('Das Produkt ist gefaehrlich');
     contextLanguage = 'en_EN';
     expect(getBoilerplate('dangerous')).to.equal('This product is dangerous');
   });
@@ -160,6 +171,7 @@ describe('You can also use contextTag in your expressions', () => {
 });
 
 describe('More complex expressions and testing', () => {
+  // TODO Überarbeiten: "min/max String" ist ein interner begriff
   it('Creates a min...max String in relation to contextTag, contextLanguage and other Attributes/Expressions', () => {
     contextTag = '2_wire_connector';
     contextLanguage = 'de_DE';

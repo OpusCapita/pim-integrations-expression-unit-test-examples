@@ -6,3 +6,14 @@
 - You need to have mocha installed, if you havent installed it, type `sudo npm install -g mocha`
 ## How to start the example:
 - Go to the root directory of this library and type `npm start`
+
+## Behavior of Code:
+- When you type `npm install` into the terminal, this will happen:
+<img src=":/example/behavior.JPG" />
+
+## Contributors
+| [<img src="https://avatars.githubusercontent.com/u/30691117" width="100px;"/>](https://github.com/alexejFroebel) | [**Alexej Froebel**](https://github.com/alexejFroebel)     |
+| :---: | :---: |
+ [<img src="https://avatars.githubusercontent.com/u/4085533" width="100px;"/>](https://github.com/pflenker) | [**Philipp Flenker**](https://github.com/pflenker) |
+
+TODO Contributors, erlaeutern, was passieren soll
