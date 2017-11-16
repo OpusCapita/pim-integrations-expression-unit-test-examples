@@ -1,6 +1,7 @@
 // Import and initialize
+// you dont need to change something here in your test files
 const util = require('../unitTestLibrary/util').initalize('../../example/config.json');
-// you dont need to do this in your file
+
 eval(util.unparsedExpressions);
 
 // Prepare for expression evaluation
