@@ -9,8 +9,6 @@ This repository contains usage examples for the [OpusCapita Expression Unit Test
 ## How to start the example:
 - `npm start` runs the code.
 
-## Behavior of Code:
-- When you type `npm install` into the terminal, this will happen:
 <img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" />
 
 ## Contributors
