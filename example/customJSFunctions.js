@@ -1,15 +1,18 @@
 // This are just simple exampels to show the idea of writing tests
-function getTerm(id) {
-  return term(id);
+function getRedTerm() {
+  return term('$red');
 }
-function getBoilerplate(id) {
-  return boilerplate(id);
+function getBlueTerm() {
+  return term('$blue');
 }
-function getAttributeValue(id) {
-  return product.attributeValue(id);
+function getBoilerplate() {
+  return boilerplate('dangerous');
 }
-function getAttributeValues(id) {
-  return product.attributeValues(id);
+function getAttributeValue() {
+  return product.attributeValue(3);
+}
+function getAttributeValues() {
+  return product.attributeValues(3);
 }
 function getContextLanguage() {
   return contextLanguage;

@@ -12,28 +12,28 @@ let contextLanguage = util.contextLanguage;
 let contextTag = util.contextTag;
 const expect = require('chai').expect;
 /*
-* describe is a function provided by the test framework used for this library, [mocha]([https://mochajs.org/). 
+* describe is a function provided by the test framework used for this library, [mocha]([https://mochajs.org/).
 * However, you can use any test library you want.
 *
-*/ 
+*/
 
 describe('You can use built-in functions in your expressions. This test library...', () => {
-    /*
+  /*
     * Call simple expressions which in turn call built-in functions.
-    * In reality, it does not make sense to pass a number to the Terms service. 
+    * In reality, it does not make sense to pass a number to the Terms service.
     * We will define a more realistic scenario later.
     */
   it('...supports term()', () => {
-    getTerm(3);
+    getRedTerm();
   });
   it('...supports boilerplate()', () => {
-    getBoilerplate(3);
+    getBoilerplate();
   });
   it('...supports product.attributeValue()', () => {
-    getAttributeValue(3);
+    getAttributeValue();
   });
   it('...supports product.attributeValues()', () => {
-    getAttributeValues(3);
+    getAttributeValues();
   });
   it('...supports contextLanguage', () => {
     getContextLanguage();
@@ -50,15 +50,15 @@ describe('You can define the behavior of the internal functions', () => {
       * term, boilerplate, product.attributeValue and product.attributeValues are sinon stubs.
       * You can define their behavior and can analyze there behavior like every other sinon stub.
       * See the documentation of sinon for more informations how to do it `http://sinonjs.org/`
-      */ 
-      term.withArgs('$red').returnsArg('red'); 
-      
-      expect(getTerm('$red')).to.equal('red');
+      */
+      term.withArgs('$red').returnsArg('red');
+
+      expect(getRedTerm()).to.equal('red');
       boilerplate.withArgs('legal').returns('My legal text');
       expect(boilerplate('legal')).to.equal('My legal text');
 
       it('Without configuration, the built in functions always return undefined', () => {
-        expect(getTerm('$blue')).to.equal(undefined);
+        expect(getBlueTerm()).to.equal(undefined);
       });
     });
   });
@@ -90,16 +90,16 @@ describe('You can also set the behavior more complex:', () => {
     *  argument "$red", the function is executed.
     */
     term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
-    
+
     /*
     * The contextLanguage does not need specific resetting, just set it to any value you want.
     */
     contextLanguage = '';
-    expect(getTerm('$red')).to.equal('red_fallback');
+    expect(getRedTerm()).to.equal('rouge');
     contextLanguage = 'de_DE';
-    expect(getTerm('$red')).to.equal('rot');
+    expect(getRedTerm()).to.equal('rot');
     contextLanguage = 'en_EN';
-    expect(getTerm('$red')).to.equal('red');
+    expect(getRedTerm()).to.equal('red');
   });
 });
 describe('You can use your expressions referencing other attributes', () => {
@@ -127,7 +127,7 @@ describe('You can also use other expressions for your expressions', () => {
     */
     product.attributeValue.withArgs('height').returns({ value() { return 8; } });
     product.attributeValue.withArgs('length').returns({ value() { return 4; } });
-    
+
     /*
     * This expression calls another attribute, which in turn uses the attribute values for height and length.
     */
@@ -157,13 +157,13 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
     term.reset();
     term.withArgs('$blue').callsFake(rightBehaviorOfTermBlue);
     contextLanguage = '';
-    expect(getTerm('$blue')).to.equal('blue_fallback');
+    expect(getBlueTerm()).to.equal('blue_fallback');
     contextLanguage = 'es_ES';
-    expect(getTerm('$blue')).to.equal('azul');
+    expect(getBlueTerm()).to.equal('azul');
     contextLanguage = 'de_DE';
-    expect(getTerm('$blue')).to.equal('blau');
+    expect(getBlueTerm()).to.equal('blau');
     contextLanguage = 'en_EN';
-    expect(getTerm('$blue')).to.equal('blue');
+    expect(getBlueTerm()).to.equal('blue');
   });
   it('Returns boilerplate in relation to the contextLanguage', () => {
     function rightBehaviorOfBoilerplateDanger() { // first you need to create a function for different contextLanguages
