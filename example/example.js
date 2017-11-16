@@ -64,43 +64,6 @@ describe('You can define the behavior of the internal functions', () => {
 });
 
 
-describe('You can also set the behavior more complex:', () => {
-  it('Terms can be returned in relation to the contextLanguage', () => {
-    /*
-    * First you have to reset the stub, in this case term, because
-    * if you dont to it, it is possible that the behavior of term was set
-    * before and this may cause unwanted behavior
-    */
-    term.reset();
-    /*
-    * This mimicks the term service, which returns terms based on the context language.
-    */
-    function rightBehaviorOfTermRed() {
-      if (contextLanguage === 'de_DE') {
-        return 'rot';
-      } else if (contextLanguage === 'en_EN') {
-        return 'red';
-      }
-      // If the language is unknown, return a default language
-      return 'rouge';
-    }
-    /*
-    *  We pass this function to the term stub. Now, when it is called with the
-    *  argument "$red", the function is executed.
-    */
-    term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
-
-    /*
-    * The contextLanguage does not need specific resetting, just set it to any value you want.
-    */
-    contextLanguage = '';
-    expect(getRedTerm()).to.equal('rouge');
-    contextLanguage = 'de_DE';
-    expect(getRedTerm()).to.equal('rot');
-    contextLanguage = 'en_EN';
-    expect(getRedTerm()).to.equal('red');
-  });
-});
 describe('You can use your expressions referencing other attributes', () => {
   it('For instance, calculate the surface by multiplying the attribtues for height and length', () => {
     /*
@@ -171,12 +134,12 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
       * This if your fallback, so it will return blue_fallback if no if statemant
       * above is true
       */
-      return 'This product is dangerous_fallback';
+      return 'This product is harmless';
     }
     boilerplate.reset();
     boilerplate.withArgs('dangerous').callsFake(rightBehaviorOfBoilerplateDanger);
     contextLanguage = '';
-    expect(getBoilerplate('dangerous')).to.equal('This product is dangerous_fallback');
+    expect(getBoilerplate('dangerous')).to.equal('This product is harmless');
     contextLanguage = 'de_DE';
     expect(getBoilerplate('dangerous')).to.equal('Das Produkt ist gefaehrlich');
     contextLanguage = 'en_EN';
