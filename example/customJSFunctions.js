@@ -1,4 +1,6 @@
-// This are just simple exampels to show the idea of writing tests
+/*
+* These are simple expressions to show how to test expressions which rely on internal functions
+*/
 function getRedTerm() {
   return term('$red');
 }
@@ -20,17 +22,24 @@ function getContextLanguage() {
 function getContextTag() {
   return contextTag;
 }
-// Sample Expression for showing how to test a expression using other attribute values
-function calculateSquares() {
+/*
+* Calculates the surface of a product by combining the attribute values for height and length.
+*/
+function calculateSurface() {
   var height = product.attributeValue('height').value();
   var length = product.attributeValue('length').value();
   return length * height;
 }
-// Sample Expression for showing how to test a expression using other expressions
-function concatDeepthWithUoM() {
-  return `${calculateSquares()} cm`;
+/*
+* Example for a nested expression: Calculates the surface and adds 'cm'
+*/
+function calculateSurfaceString() {
+  //TODO
+  return calculateSquares()" + "cm";
 }
-// These are sample expression for showing how to test contextTag behavior
+/*
+* Example to show how the contextTag can be pre-defined
+*/
 function calculateMinimalSuspense() {
   if (contextTag === '2_wire_connector') {
     return 20;
@@ -46,7 +55,13 @@ function calculateMaximalSuspense() {
   }
   return 30;
 }
-// This is a example for a real expression
+/*
+* This expression wants to build a so called "Min Max" string. It accesses 
+* two attributes, one MIN and one MAX value. If only MIN is there, display >MIN,
+* If only MAX is there, display <MAX
+* If both are there, display for all languages except Japanese MIN...MAX, and for Japanese MIN~MAX
+* Additionally, we add a term to the end of the string which tells us about the unit of measure
+*/
 function buildMinMaxString() {
   var between,
     min,
@@ -56,15 +71,15 @@ function buildMinMaxString() {
   } else {
     between = '...';
   }
-  min = calculateMinimalSuspense();
-  max = calculateMaximalSuspense();
+  min = calculateMinimalSuspense(); //TODO muss ein anderes attribut aufrufen
+  max = calculateMaximalSuspense(); //TODO same here
   var returnString = '';
   if (min && max) {
-    returnString = `${min + between + max} DC`;
+    returnString = `${min + between + max} DC`; //TODO DC is a term, and should always be appended
   } else if (!min) {
-    returnString = `<${max}`;
+    returnString = `<${max}`; //TODO ES6
   } else if (!max) {
-    returnString = `>${min}`;
+    returnString = `>${min}`; //TODO ES6
   }
   return returnString;
 }
