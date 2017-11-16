@@ -1,5 +1,7 @@
 # stprj-expression-unit-test-examples
-## How to Prepare:
+This repository contains usage examples for the [OpusCapita Expression Unit Test Library](https://github.com/OpusCapita/stprj-expression-unit-test).
+
+## How to prepare:
 - First you need to clone this repository and with the submodule. For this type `git clone --recursive <this repository>`
 - Than `cd unitTestLibrary` and type `npm install`
 - After that you need to type `cd ../example` and type `npm install`
