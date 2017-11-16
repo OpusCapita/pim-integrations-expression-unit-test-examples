@@ -2,16 +2,16 @@
 This repository contains usage examples for the [OpusCapita Expression Unit Test Library](https://github.com/OpusCapita/stprj-expression-unit-test).
 
 ## How to prepare:
-- First you need to clone this repository and with the submodule. For this type `git clone --recursive <this repository>`
-- Than `cd unitTestLibrary` and type `npm install`
-- After that you need to type `cd ../example` and type `npm install`
-- You need to have mocha installed, if you havent installed it, type `sudo npm install -g mocha`
+- Clone this repository with submodules with `git clone --recursive <this repository>`
+- Initialize the Unit Test Library by doing `cd unitTestLibrary` and  `npm install`
+- `cd ..` back to the main directory and initialize with `npm install`
+
 ## How to start the example:
-- Go to the root directory of this library and type `npm start`
+- `npm start` runs the code.
 
 ## Behavior of Code:
 - When you type `npm install` into the terminal, this will happen:
-<img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" height="350px" width="400px"/>
+<img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" />
 
 ## Contributors
 | [<img src="https://avatars.githubusercontent.com/u/30691117" width="100px;"/>](https://github.com/alexejFroebel) | [**Alexej Froebel**](https://github.com/alexejFroebel)     |
