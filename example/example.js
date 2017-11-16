@@ -20,8 +20,7 @@ const expect = require('chai').expect;
 describe('You can use built-in functions in your expressions. This test library...', () => {
   /*
     * Call simple expressions which in turn call built-in functions.
-    * In reality, it does not make sense to pass a number to the Terms service.
-    * We will define a more realistic scenario later.
+    * We will define a more sophisticated scenario later.
     */
   it('...supports term()', () => {
     getRedTerm();
@@ -138,7 +137,7 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
   it('Returns term in relation to the contextLanguage', () => {
     /*
     * First you need to set up a function for the right behavior of the term
-    * in differen Languages
+    * in different Languages
     */
     function rightBehaviorOfTermBlue() {
       if (contextLanguage === 'de_DE') {
@@ -148,16 +147,12 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
       } else if (contextLanguage === 'es_ES') {
         return 'azul';
       }
-      /*
-      * This if your fallback, so it will return blue_fallback if no if statemant
-      * above is true
-      */
-      return 'blue_fallback';
+      return 'bleu';
     }
     term.reset();
     term.withArgs('$blue').callsFake(rightBehaviorOfTermBlue);
     contextLanguage = '';
-    expect(getBlueTerm()).to.equal('blue_fallback');
+    expect(getBlueTerm()).to.equal('bleu');
     contextLanguage = 'es_ES';
     expect(getBlueTerm()).to.equal('azul');
     contextLanguage = 'de_DE';
