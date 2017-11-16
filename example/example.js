@@ -36,7 +36,9 @@ describe('It will not throw errors if you are using the predefined expression fu
 describe('You can define the behavior of the stubs', () => {
   it('The returnvalue can be set for specified input', () => {
     it('will return the behavior You set for term in getTerm()', () => {
-      /* TODO
+      /*
+      * This sets the behavior of term if it is called with $red.
+      * It will return red than:
       * term("$red") => "red"
       */
       term.withArgs('$red').returnsArg('red'); // term will return red if it gets called with argument $red
@@ -49,16 +51,21 @@ describe('You can define the behavior of the stubs', () => {
       boilerplate.withArgs('legal').returns('My legal text');
       expect(boilerplate('legal')).to.equal('My legal text');
 
-      it('will return undefined if the term is not defined');
-      // TODO ???
-      expect(getTerm('$blue')).to.equal(undefined);
+      it('will return undefined if the term is not defined', () => {
+        expect(getTerm('$blue')).to.equal(undefined);
+      });
     });
   });
 });
 
 describe('You can also set the behavior more complex:', () => {
   it('can be set in relation of other variables', () => {
-    term.reset(); // because of this the stub is cleared and has its initial behavior TODO kommentar drüber und asuführlicher
+    /*
+    * First you have to reset the stub, in this case term, because
+    * if you dont to it, it is possible that the behavior of term was set
+    * before and this may cause unwanted behavior
+    */
+    term.reset();
 
 
     // A function is created which declares a more complex behavior for the term
@@ -76,9 +83,11 @@ describe('You can also set the behavior more complex:', () => {
     *   Now the function gets called every time when term gets called with argument $red
     */
     term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
-
-
-    contextLanguage = ''; // contextLanguage is variable so if you want to reset it just do this TODO
+    /*
+    * contextLanguage is just a variable, so if you need to reset is,
+    * just type the following
+    */
+    contextLanguage = '';
 
     expect(getTerm('$red')).to.equal('red_fallback');
     contextLanguage = 'de_DE';
@@ -86,6 +95,7 @@ describe('You can also set the behavior more complex:', () => {
     contextLanguage = 'en_EN';
     expect(getTerm('$red')).to.equal('red');
   });
+
   it('will not do the same for $blue or other not specified arguments', () => {
     expect(getTerm('$blue')).to.equal(undefined);
     expect(getTerm('$green')).to.equal(undefined);
@@ -121,7 +131,11 @@ describe('You can also use other expressions for your expressions', () => {
 });
 describe('You can also use term() and boilerplate() in relation to contextLanguage', () => {
   it('Returns term in relation to the contextLanguage', () => {
-    function rightBehaviorOfTermBlue() { // first you need to create a function for different contextLanguages TODO Kommentar drüber und ausformulieren
+    /*
+    * First you need to set up a function for the right behavior of the term
+    * in differen Languages
+    */
+    function rightBehaviorOfTermBlue() {
       if (contextLanguage === 'de_DE') {
         return 'blau';
       } else if (contextLanguage === 'en_EN') {
@@ -129,7 +143,10 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
       } else if (contextLanguage === 'es_ES') {
         return 'azul';
       }
-      // your fallback TODO genauer ausformulieren
+      /*
+      * This if your fallback, so it will return blue_fallback if no if statemant
+      * above is true
+      */
       return 'blue_fallback';
     }
     term.reset();
@@ -150,7 +167,10 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
       } else if (contextLanguage === 'en_EN') {
         return 'This product is dangerous';
       }
-      // your fallback
+      /*
+      * This if your fallback, so it will return blue_fallback if no if statemant
+      * above is true
+      */
       return 'This product is dangerous_fallback';
     }
     boilerplate.reset();
@@ -171,7 +191,14 @@ describe('You can also use contextTag in your expressions', () => {
 });
 
 describe('More complex expressions and testing', () => {
-  // TODO Überarbeiten: "min/max String" ist ein interner begriff
+  /*
+  * In this expression, we make a string, which is related to contextTag and contextLanguage.
+  * I called it min...max String, because it builds a string which shows the minimal and the
+  * maximal suspense.
+  * If the contextLanguage is japanese, he makes a min~max string.
+  * If the minimal suspense is undefined, it will return <maximal suspense.
+  * If the maximal suspense is undefined, it will return >minimal suspense.
+  */
   it('Creates a min...max String in relation to contextTag, contextLanguage and other Attributes/Expressions', () => {
     contextTag = '2_wire_connector';
     contextLanguage = 'de_DE';
