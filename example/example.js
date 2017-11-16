@@ -11,101 +11,102 @@ const product = util.product;
 let contextLanguage = util.contextLanguage;
 let contextTag = util.contextTag;
 const expect = require('chai').expect;
+/*
+* describe is a function provided by the test framework used for this library, [mocha]([https://mochajs.org/). 
+* However, you can use any test library you want.
+*
+*/ 
 
-describe('It will not throw errors if you are using the predefined expression functions', () => {
-  it('supports term()', () => {
+describe('You can use built-in functions in your expressions. This test library...', () => {
+    /*
+    * Call simple expressions which in turn call built-in functions.
+    * In reality, it does not make sense to pass a number to the Terms service. 
+    * We will define a more realistic scenario later.
+    */
+  it('...supports term()', () => {
     getTerm(3);
   });
-  it('supports boilerplate()', () => {
+  it('...supports boilerplate()', () => {
     getBoilerplate(3);
   });
-  it('supports product.attributeValue()', () => {
+  it('...supports product.attributeValue()', () => {
     getAttributeValue(3);
   });
-  it('supports product.attributeValues()', () => {
+  it('...supports product.attributeValues()', () => {
     getAttributeValues(3);
   });
-  it('supports contextLanguage', () => {
+  it('...supports contextLanguage', () => {
     getContextLanguage();
   });
-  it('supports contextTag', () => {
+  it('...supports contextTag', () => {
     getContextTag();
   });
 });
 
-describe('You can define the behavior of the stubs', () => {
-  it('The returnvalue can be set for specified input', () => {
-    it('will return the behavior You set for term in getTerm()', () => {
-      /*
-      * This sets the behavior of term if it is called with $red.
-      * It will return red than:
-      * term("$red") => "red"
-      */
-      term.withArgs('$red').returnsArg('red'); // term will return red if it gets called with argument $red
+describe('You can define the behavior of the internal functions', () => {
+  it('You can define the return value in relation to the input value', () => {
+    it('Calling term("$red") returns "red"', () => {
       /*
       * term, boilerplate, product.attributeValue and product.attributeValues are sinon stubs.
       * You can define their behavior and can analyze there behavior like every other sinon stub.
       * See the documentation of sinon for more informations how to do it `http://sinonjs.org/`
-      */
+      */ 
+      term.withArgs('$red').returnsArg('red'); 
+      
       expect(getTerm('$red')).to.equal('red');
       boilerplate.withArgs('legal').returns('My legal text');
       expect(boilerplate('legal')).to.equal('My legal text');
 
-      it('will return undefined if the term is not defined', () => {
+      it('Without configuration, the built in functions always return undefined', () => {
         expect(getTerm('$blue')).to.equal(undefined);
       });
     });
   });
 });
 
+
 describe('You can also set the behavior more complex:', () => {
-  it('can be set in relation of other variables', () => {
+  it('Terms can be returned in relation to the contextLanguage', () => {
     /*
     * First you have to reset the stub, in this case term, because
     * if you dont to it, it is possible that the behavior of term was set
     * before and this may cause unwanted behavior
     */
     term.reset();
-
-
-    // A function is created which declares a more complex behavior for the term
+    /*
+    * This mimicks the term service, which returns terms based on the context language.
+    */
     function rightBehaviorOfTermRed() {
       if (contextLanguage === 'de_DE') {
         return 'rot';
       } else if (contextLanguage === 'en_EN') {
         return 'red';
       }
-      // Your fallback if none of them is true
-      return 'red_fallback';
+      // If the language is unknown, return a default language
+      return 'rouge';
     }
     /*
-    *   The function gets linked with the sinon-stub term.
-    *   Now the function gets called every time when term gets called with argument $red
+    *  We pass this function to the term stub. Now, when it is called with the
+    *  argument "$red", the function is executed.
     */
     term.withArgs('$red').callsFake(rightBehaviorOfTermRed);
+    
     /*
-    * contextLanguage is just a variable, so if you need to reset is,
-    * just type the following
+    * The contextLanguage does not need specific resetting, just set it to any value you want.
     */
     contextLanguage = '';
-
     expect(getTerm('$red')).to.equal('red_fallback');
     contextLanguage = 'de_DE';
     expect(getTerm('$red')).to.equal('rot');
     contextLanguage = 'en_EN';
     expect(getTerm('$red')).to.equal('red');
   });
-
-  it('will not do the same for $blue or other not specified arguments', () => {
-    expect(getTerm('$blue')).to.equal(undefined);
-    expect(getTerm('$green')).to.equal(undefined);
-  });
 });
-describe('You can use your expressions pointing on one or more other attributes', () => {
-  it('Two attributes are called', () => {
+describe('You can use your expressions referencing other attributes', () => {
+  it('For instance, calculate the surface by multiplying the attribtues for height and length', () => {
     /*
-    * product.attributeValue retuns a JSON with a function called value, because
-    * product.attributeValue.value() is also a function in PIM
+    * product.attributeValue.value() is a function in PIM, therefore we have to set up the
+    * productAttributeValue to return a function, which then returns the value.
     */
     product.attributeValue.withArgs('height').returns({ value() { return 5; } });
     product.attributeValue.withArgs('length').returns({ value() { return 3; } });
@@ -113,19 +114,23 @@ describe('You can use your expressions pointing on one or more other attributes'
   });
 });
 describe('You can also use other expressions for your expressions', () => {
-  // This only works if all expressions of you are in the customJSFunctions file.
-  it('also works if not defined earlyer', () => {
+  /*
+  * This only works if all expressions of you are in the customJSFunctions file.
+  * It does not work if you are referencing an expression which has been added in-line in PIM.
+  * In that case, should can directly define the return value of that expression, the same way
+  * you set up the return value for other function calls
+  */
+  it('For example, concatenating a unit of measure to an expression result ', () => {
     product.attributeValue.reset();
     /*
-    * First you need to describe the behavior for the pointed expression,
-    * so in this case the behavior of calculateSquares()
+    * First we need to set up the attribute values used by the nested expression
     */
     product.attributeValue.withArgs('height').returns({ value() { return 8; } });
-    /*
-    * product.attributeValue retuns a JSON with a function called 'value', because
-    * product.attributeValue.value() is also a function in PIM
-    */
     product.attributeValue.withArgs('length').returns({ value() { return 4; } });
+    
+    /*
+    * This expression calls another attribute, which in turn uses the attribute values for height and length.
+    */
     expect(concatDeepthWithUoM()).to.equal('32 cm');
   });
 });
