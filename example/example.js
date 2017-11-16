@@ -54,7 +54,7 @@ describe('You can define the behavior of the internal functions', () => {
 
       expect(getRedTerm()).to.equal('red');
       boilerplate.withArgs('legal').returns('My legal text');
-      expect(boilerplate('legal')).to.equal('My legal text');
+      expect(getLegalBoilerplate()).to.equal('My legal text');
 
       it('Without configuration, the built in functions always return undefined', () => {
         expect(getBlueTerm()).to.equal(undefined);
@@ -72,7 +72,7 @@ describe('You can use your expressions referencing other attributes', () => {
     */
     product.attributeValue.withArgs('height').returns({ value() { return 5; } });
     product.attributeValue.withArgs('length').returns({ value() { return 3; } });
-    expect(calculateSquares()).to.equal(15);
+    expect(calculateSurface()).to.equal(15);
   });
 });
 describe('You can also use other expressions for your expressions', () => {
@@ -87,13 +87,12 @@ describe('You can also use other expressions for your expressions', () => {
     /*
     * First we need to set up the attribute values used by the nested expression
     */
-    product.attributeValue.withArgs('height').returns({ value() { return 8; } });
-    product.attributeValue.withArgs('length').returns({ value() { return 4; } });
+    product.attributeValue.withArgs('surface').returns({ value() { return 32; } });
 
     /*
     * This expression calls another attribute, which in turn uses the attribute values for height and length.
     */
-    expect(concatDeepthWithUoM()).to.equal('32 cm');
+    expect(calculateSurfaceString()).to.equal('32 cm');
   });
 });
 describe('You can also use term() and boilerplate() in relation to contextLanguage', () => {
@@ -139,11 +138,11 @@ describe('You can also use term() and boilerplate() in relation to contextLangua
     boilerplate.reset();
     boilerplate.withArgs('dangerous').callsFake(rightBehaviorOfBoilerplateDanger);
     contextLanguage = '';
-    expect(getBoilerplate('dangerous')).to.equal('This product is harmless');
+    expect(getDangerousBoilerplate()).to.equal('This product is harmless');
     contextLanguage = 'de_DE';
-    expect(getBoilerplate('dangerous')).to.equal('Das Produkt ist gefaehrlich');
+    expect(getDangerousBoilerplate()).to.equal('Das Produkt ist gefaehrlich');
     contextLanguage = 'en_EN';
-    expect(getBoilerplate('dangerous')).to.equal('This product is dangerous');
+    expect(getDangerousBoilerplate()).to.equal('This product is dangerous');
   });
 });
 describe('You can also use contextTag in your expressions', () => {
@@ -165,6 +164,21 @@ describe('More complex expressions and testing', () => {
   it('Creates a min...max String in relation to contextTag, contextLanguage and other Attributes/Expressions', () => {
     contextTag = '2_wire_connector';
     contextLanguage = 'de_DE';
+    product.attributeValue.reset();
+    /*
+    * We have to do this, because calculateMinimalSuspense and calculateMaximalSuspense
+    * are returning a Integer and in PIM and expressions we need product.attributeValue().value()
+    * so in this case we need to transform it into a function
+    */
+    function minimalSuspenseToValue() {
+      return { value: function () { return calculateMinimalSuspense(); } };
+    }
+    function maximalSuspenseToValue() {
+      return { value: function () { return calculateMaximalSuspense(); } };
+    }
+    product.attributeValue.withArgs('minimalSuspense').callsFake(minimalSuspenseToValue);
+    product.attributeValue.withArgs('maximalSuspense').callsFake(maximalSuspenseToValue);
+    term.withArgs('UoM_suspense').returns('DC');
     expect(buildMinMaxString()).to.equal('20...32 DC');
     contextTag = '3_wire_connector';
     expect(buildMinMaxString()).to.equal('18...32 DC');

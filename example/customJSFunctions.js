@@ -22,6 +22,12 @@ function getContextLanguage() {
 function getContextTag() {
   return contextTag;
 }
+function getLegalBoilerplate() {
+  return boilerplate('legal');
+}
+function getDangerousBoilerplate() {
+  return boilerplate('dangerous');
+}
 /*
 * Calculates the surface of a product by combining the attribute values for height and length.
 */
@@ -34,8 +40,8 @@ function calculateSurface() {
 * Example for a nested expression: Calculates the surface and adds 'cm'
 */
 function calculateSurfaceString() {
-  //TODO
-  return calculateSquares() + "cm";
+  // TODO
+  return product.attributeValue('surface').value() + ' cm';
 }
 /*
 * Example to show how the contextTag can be pre-defined
@@ -56,7 +62,7 @@ function calculateMaximalSuspense() {
   return 30;
 }
 /*
-* This expression wants to build a so called "Min Max" string. It accesses 
+* This expression wants to build a so called "Min Max" string. It accesses
 * two attributes, one MIN and one MAX value. If only MIN is there, display >MIN,
 * If only MAX is there, display <MAX
 * If both are there, display for all languages except Japanese MIN...MAX, and for Japanese MIN~MAX
@@ -71,15 +77,16 @@ function buildMinMaxString() {
   } else {
     between = '...';
   }
-  min = calculateMinimalSuspense(); //TODO muss ein anderes attribut aufrufen
-  max = calculateMaximalSuspense(); //TODO same here
+
+  min = product.attributeValue('minimalSuspense').value();
+  max = product.attributeValue('maximalSuspense').value();
   var returnString = '';
   if (min && max) {
-    returnString = `${min + between + max} DC`; //TODO DC is a term, and should always be appended
+    returnString = min + between + max + ' ' + term('UoM_suspense'); // TODO DC is a term, and should always be appended
   } else if (!min) {
-    returnString = `<${max}`; //TODO ES6
+    returnString = '<' + max;
   } else if (!max) {
-    returnString = `>${min}`; //TODO ES6
+    returnString = '>' + min;
   }
   return returnString;
 }
