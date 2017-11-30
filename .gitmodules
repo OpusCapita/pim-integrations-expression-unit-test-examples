@@ -1,0 +1,3 @@
+[submodule "unitTestLibrary"]
+	path = unitTestLibrary
+	url = git@github.com:OpusCapita/stprj-expression-unit-test.git
