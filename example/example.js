@@ -31,9 +31,6 @@ describe('You can use built-in functions in your expressions. This test library.
   it('...supports product.attributeValue()', () => {
     getAttributeValue();
   });
-  it('...supports product.attributeValues()', () => {
-    getAttributeValues();
-  });
   it('...supports contextLanguage', () => {
     getContextLanguage();
   });
@@ -46,7 +43,7 @@ describe('You can define the behavior of the internal functions', () => {
   it('You can define the return value in relation to the input value', () => {
     it('Calling term("$red") returns "red"', () => {
       /*
-      * term, boilerplate, product.attributeValue and product.attributeValues are sinon stubs.
+      * term, boilerplate and product.attributeValue are sinon stubs.
       * You can define their behavior and can analyze there behavior like every other sinon stub.
       * See the documentation of sinon for more informations how to do it `http://sinonjs.org/`
       */
@@ -66,12 +63,8 @@ describe('You can define the behavior of the internal functions', () => {
 
 describe('You can use your expressions referencing other attributes', () => {
   it('For instance, calculate the surface by multiplying the attribtues for height and length', () => {
-    /*
-    * product.attributeValue.value() is a function in PIM, therefore we have to set up the
-    * productAttributeValue to return a function, which then returns the value.
-    */
-    product.attributeValue.withArgs('height').returns({ value() { return 5; } });
-    product.attributeValue.withArgs('length').returns({ value() { return 3; } });
+    product.attributeValue.withArgs('height').returns(5);
+    product.attributeValue.withArgs('length').returns(3);
     expect(calculateSurface()).to.equal(15);
   });
 });
@@ -87,7 +80,7 @@ describe('You can also use other expressions for your expressions', () => {
     /*
     * First we need to set up the attribute values used by the nested expression
     */
-    product.attributeValue.withArgs('surface').returns({ value() { return 32; } });
+    product.attributeValue.withArgs('surface').returns(32);
 
     /*
     * This expression calls another attribute, which in turn uses the attribute values for height and length.
@@ -165,19 +158,8 @@ describe('More complex expressions and testing', () => {
     contextTag = '2_wire_connector';
     contextLanguage = 'de_DE';
     product.attributeValue.reset();
-    /*
-    * We have to do this, because calculateMinimalSuspense and calculateMaximalSuspense
-    * are returning a Integer and in PIM and expressions we need product.attributeValue().value()
-    * so in this case we need to transform it into a function
-    */
-    function minimalSuspenseToValue() {
-      return { value: function () { return calculateMinimalSuspense(); } };
-    }
-    function maximalSuspenseToValue() {
-      return { value: function () { return calculateMaximalSuspense(); } };
-    }
-    product.attributeValue.withArgs('minimalSuspense').callsFake(minimalSuspenseToValue);
-    product.attributeValue.withArgs('maximalSuspense').callsFake(maximalSuspenseToValue);
+    product.attributeValue.withArgs('minimalSuspense').callsFake(calculateMinimalSuspense);
+    product.attributeValue.withArgs('maximalSuspense').callsFake(calculateMaximalSuspense);
     term.withArgs('UoM_suspense').returns('DC');
     expect(buildMinMaxString()).to.equal('20...32 DC');
     contextTag = '3_wire_connector';

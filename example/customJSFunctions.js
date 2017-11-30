@@ -13,9 +13,6 @@ function getBoilerplate() {
 function getAttributeValue() {
   return product.attributeValue(3);
 }
-function getAttributeValues() {
-  return product.attributeValues(3);
-}
 function getContextLanguage() {
   return contextLanguage;
 }
@@ -32,15 +29,15 @@ function getDangerousBoilerplate() {
 * Calculates the surface of a product by combining the attribute values for height and length.
 */
 function calculateSurface() {
-  var height = product.attributeValue('height').value();
-  var length = product.attributeValue('length').value();
+  var height = product.attributeValue('height');
+  var length = product.attributeValue('length');
   return length * height;
 }
 /*
 * Example for a nested expression: Calculates the surface and adds 'cm'
 */
 function calculateSurfaceString() {
-  return product.attributeValue('surface').value() + ' cm';
+  return product.attributeValue('surface') + ' cm';
 }
 /*
 * Example to show how the contextTag can be pre-defined
@@ -77,8 +74,8 @@ function buildMinMaxString() {
     between = '...';
   }
 
-  min = product.attributeValue('minimalSuspense').value();
-  max = product.attributeValue('maximalSuspense').value();
+  min = product.attributeValue('minimalSuspense');
+  max = product.attributeValue('maximalSuspense');
   var returnString = '';
   if (min && max) {
     returnString = min + between + max + ' ' + term('UoM_suspense');
