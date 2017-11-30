@@ -37,7 +37,7 @@ function calculateSurface() {
 * Example for a nested expression: Calculates the surface and adds 'cm'
 */
 function calculateSurfaceString() {
-  return product.attributeValue('surface').value() + ' cm';
+  return product.attributeValue('surface') + ' cm';
 }
 /*
 * Example to show how the contextTag can be pre-defined
