@@ -37,8 +37,7 @@ function calculateSurface() {
 * Example for a nested expression: Calculates the surface and adds 'cm'
 */
 function calculateSurfaceString() {
-  // TODO
-  return product.attributeValue('surface') + ' cm';
+  return product.attributeValue('surface').value() + ' cm';
 }
 /*
 * Example to show how the contextTag can be pre-defined
@@ -79,7 +78,7 @@ function buildMinMaxString() {
   max = product.attributeValue('maximalSuspense');
   var returnString = '';
   if (min && max) {
-    returnString = min + between + max + ' ' + term('UoM_suspense'); // TODO DC is a term, and should always be appended
+    returnString = min + between + max + ' ' + term('UoM_suspense');
   } else if (!min) {
     returnString = '<' + max;
   } else if (!max) {
