@@ -1,5 +1,5 @@
-# stprj-expression-unit-test-examples
-This repository contains usage examples for the [OpusCapita Expression Unit Test Library](https://github.com/OpusCapita/stprj-expression-unit-test).
+# Expressions Unit Test Library Examples
+This repository contains usage examples for the [OpusCapita Expression Unit Test Library](https://github.com/OpusCapita/pim-integrations-expression-unit-test).
 
 ## How to prepare:
 - Clone this repository with submodules with `git clone --recursive <this repository>`
@@ -10,7 +10,7 @@ This repository contains usage examples for the [OpusCapita Expression Unit Test
 - `npm start` runs the code.
 - You can find the example expressions in [`example/customJSFunctions.js`](example/customJSFunctions.js) and the sample file containing the test cases in [`example/example.js`](example/example.js)
 
-<img src="https://github.com/OpusCapita/stprj-expression-unit-test-examples/blob/dev/example/behavior.JPG" />
+<img src="https://github.com/OpusCapita/pim-integrations-expression-unit-test-examples/blob/master/example/behavior.JPG" />
 
 ## Contributors
 | [<img src="https://avatars.githubusercontent.com/u/30691117" width="100px;"/>](https://github.com/alexejFroebel) | [**Alexej Froebel**](https://github.com/alexejFroebel)     |
