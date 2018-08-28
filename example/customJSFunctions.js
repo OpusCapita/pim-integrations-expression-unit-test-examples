@@ -45,14 +45,13 @@ function calculateSurfaceString() {
 function calculateMinimalSuspense() {
   if (contextTag === '2_wire_connector') {
     return 20;
-  } else if (contextTag === '3_wire_connector') {
+  }
+  if (contextTag === '3_wire_connector') {
     return 18;
   }
 }
 function calculateMaximalSuspense() {
-  if (contextTag === '2_wire_connector') {
-    return 32;
-  } else if (contextTag === '3_wire_connector') {
+  if (contextTag === '2_wire_connector' || contextTag === '3_wire_connector') {
     return 32;
   }
   return 30;

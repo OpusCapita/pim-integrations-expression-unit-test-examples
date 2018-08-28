@@ -1,23 +1,31 @@
 {
-  "name": "unittestlibrary-examples",
-  "version": "0.0.1",
+  "name": "pim-integrations-expression-unit-test-example",
+  "version": "6.0.0",
   "description": "A example library for the unit-test library",
   "main": "index.js",
   "scripts": {
-    "start": "mocha ./example/example.js"
+    "start": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OpusCapita/stprj-expression-unit-test-examples.git"
   },
   "dependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^4.0.1"
+    "global": "^4.3.2",
+    "jest": "^23.5.0",
+    "pim-integrations-expression-unit-test": "https://github.com/OpusCapita/pim-integrations-expression-unit-test.git#issue-7"
   },
-  "author": "Philipp Flenker, Alexej Froebel",
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "author": "OpusCapita",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OpusCapita/stprj-expression-unit-test-examples/issues"
+    "url": "https://github.com/OpusCapita/stprj-expression-unit-test/issues"
   },
   "homepage": "https://github.com/OpusCapita/stprj-expression-unit-test-examples#readme"
 }
