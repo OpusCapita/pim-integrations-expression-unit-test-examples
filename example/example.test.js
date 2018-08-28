@@ -98,7 +98,7 @@ describe('You can define the behavior of the internal functions', () => {
 
 
 describe('You can use your expressions referencing other attributes', () => {
-  it('For instance, calculate the surface by multiplying the attribtues for height and length', () => {
+  it('For instance, calculate the surface by multiplying the attributes for height and length', () => {
     product.attributeValue.mockImplementation((arg) => {
       if (arg === 'height') {
         return 5;
