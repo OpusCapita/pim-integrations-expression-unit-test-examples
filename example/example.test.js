@@ -35,12 +35,12 @@ let contextTag = util.contextTag;
 */
 
 beforeEach(() => {
-  // Reset context language and tag. Usually, you also do not want to change this here.
+  // Reset context language and tag. Usually, you do not want to change this here.
   contextLanguage = '';
   contextTag = '';
 });
 afterEach(() => {
-  jest.resetAllMocks(); // make sure mocks are resetted. Usually, you do not want to delete this.
+  jest.resetAllMocks(); // make sure mocks are resetted. Usually, you also do not want to delete this.
 });
 
 
