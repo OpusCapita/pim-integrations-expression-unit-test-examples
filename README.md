@@ -9,7 +9,7 @@ This repository contains usage examples for the [OpusCapita Expression Unit Test
 - `npm start` runs the code.
 - You can find the example expressions in [`example/customJSFunctions.js`](example/customJSFunctions.js) and the sample file containing the test cases in [`example/example.test.js`](example/example.test.js)
 
-<img src="https://github.com/OpusCapita/pim-integrations-expression-unit-test-examples/blob/master/example/behaviour.gif" />
+<img src="./example/behaviour.gif" />
 
 ## Contributors
 | [<img src="https://avatars.githubusercontent.com/u/41996712" width="100px;"/>](https://github.com/uwestolz) | [**Uwe Stolz**](https://github.com/uwestolz)     |
