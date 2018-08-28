@@ -12,10 +12,12 @@ module.exports = {
     "consistent-return": 0,
     "vars-on-top": 0,
     "max-len": 0,
-    "prefer-template": 0
+    "prefer-template": 0,
+    "prefer-destructuring": 0,
+    "object-shorthand": 0
   },
     'env': {
-        "mocha": true,
+        "jest": true,
         "es6": false
     }
 
