@@ -22,10 +22,10 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1"
   },
-  "author": "Philipp Flenker, Alexej Froebel",
+  "author": "OpusCapita",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OpusCapita/stprj-expression-unit-test-examples/issues"
+    "url": "https://github.com/OpusCapita/stprj-expression-unit-test/issues"
   },
   "homepage": "https://github.com/OpusCapita/stprj-expression-unit-test-examples#readme"
 }
