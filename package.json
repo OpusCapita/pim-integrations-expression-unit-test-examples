@@ -1,6 +1,6 @@
 {
   "name": "pim-integrations-expression-unit-test-example",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "A example library for the unit-test library",
   "main": "index.js",
   "scripts": {
