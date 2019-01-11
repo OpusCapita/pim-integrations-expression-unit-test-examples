@@ -2899,9 +2899,9 @@ pify@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
 
-pim-integrations-expression-unit-test@6.0.0:
+pim-integrations-expression-unit-test@OpusCapita/pim-integrations-expression-unit-test#issue-9:
   version "6.0.0"
-  resolved "https://registry.yarnpkg.com/pim-integrations-expression-unit-test/-/pim-integrations-expression-unit-test-6.0.0.tgz#d7249f975d3acc2ba0962536d9a36823cf170fde"
+  resolved "https://codeload.github.com/OpusCapita/pim-integrations-expression-unit-test/tar.gz/186b9c7802a1526522d1f604dbac82985cfe0812"
   dependencies:
     jest "^23.5.0"
 

@@ -3,19 +3,8 @@ const filePath = './example/customJSFunctions.js';
 
 
 // Do not change the following code block
-
-// Import and initialize
 jest.unmock('pim-integrations-expression-unit-test');
-const util = require('pim-integrations-expression-unit-test').initalize({ filePath: filePath });
-
-eval(util.unparsedExpressions);
-
-// Prepare for expression evaluation
-const term = util.term;
-const boilerplate = util.boilerplate;
-const product = util.product;
-let contextLanguage = util.contextLanguage;
-let contextTag = util.contextTag;
+require('pim-integrations-expression-unit-test').initalize({ filePath: filePath });
 
 
 /*
@@ -23,6 +12,31 @@ let contextTag = util.contextTag;
 * directly, or from within your test cases. contextLanguage is a simple
 * variable, which you can change. In expressions it is used for example with:
 * "en_EN","de_DE" or "es_ES".
+* Here is a list of the available data of the PIM Internal Objects:
+  contextLanguage
+  contextTag
+  term
+  boilerplate
+  product{
+    catalogId,
+    attributeValue,
+    statusId,
+    productIdExtension,
+    productId,
+    supplierId,
+    isMainProdLine,
+    manufacturerId,
+    isPunchout,
+    keywords,
+    isConfigurable,
+    unitOfMeasureId,
+    salesUnitOfMeasureId,
+    validTo,
+    validFrom,
+    extProductId,
+    mfgProductId,
+    manufacturerName
+  }
 * term, boilerplate and product.getAttributeValue are jest mocks, and can be
 * configured like any other jest mock. You can read the jest-mock documentation
 * here: https://jestjs.io/docs/en/mock-functions
