@@ -3,8 +3,6 @@ const filePath = './example/customJSFunctions.js';
 
 
 // Do not change the following code block
-
-// Import and initialize
 jest.unmock('pim-integrations-expression-unit-test');
 require('pim-integrations-expression-unit-test').initalize({ filePath: filePath });
 
